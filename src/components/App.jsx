@@ -1,43 +1,37 @@
-import { Component } from "react";
-import { Statistics } from "./Statistics/Statistics";
-import { FeedbackOptions } from "./FeedbackOptions/FeedbackOptions";
-import { Section } from "./Section/Section";
-import { Notification } from "./Notofication/Notification";
+import { useState } from "react";
+import  { Statistics} from "./Statistics/Statistics";
+import {FeedbackOptions}  from "./FeedbackOptions/FeedbackOptions";
+import {Section} from "./Section/Section";
+import {Notification} from "./Notofication/Notification";
 import css from "./App.module.css";
 
-export class App extends Component {
-  state = {
-      good: 0,
-      neutral: 0,
-      bad: 0
-  }
-  handleClick = el => {
-    this.setState(prevState => ({ [el]: prevState[el] + 1 }));
+export const App = () => {
+ 
+ const [good, setGood] = useState(0);
+ const [neutral, setNeutral] = useState(0);
+ const [bad, setBad] = useState(0);
+ 
+ 
+
+  const handleClick = func => {
+    func(prevValue => prevValue + 1);
   };
 
-countTotalFeedback = () => {
-    // const { good, neutral, bad } = this.state;
-    return Object.values(this.state).reduce((total, item) => total + item, 0);
-}
-      
-countPositiveFeedbackPercentage = () => {
-  
-    const total = this.countTotalFeedback();
-    return Math.round((this.state.good / total) * 100);
-};
 
-render() {
+    const total = good + neutral + bad;
+    const positivePercentage =  Math.round((good / total) * 100);
 
-    const { good, neutral, bad } = this.state;
-    const total = this.countTotalFeedback();
-    const positivePercentage = `${this.countPositiveFeedbackPercentage()}%`;
-    
+
     return (
         <div className={css.container}>
             <Section title="Please leave feedback">
                 <FeedbackOptions
-                 options={this.state} 
-                 onLeaveFeedback={this.handleClick}/>
+                 options={[
+                    ['good', setGood],
+                    ['neutral', setNeutral],
+                    ['bad', setBad],
+                 ]}
+                 onLeaveFeedback={handleClick}/>
             </Section>
 
             <Section title="Statistics">
@@ -54,4 +48,3 @@ render() {
         </div>
     )
   }
-};
