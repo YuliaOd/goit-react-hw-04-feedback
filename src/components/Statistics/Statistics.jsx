@@ -16,7 +16,7 @@ export const Statistics = ({ good, neutral, bad, total, positivePercentage }) =>
                     <p className={css.text}>total: {total}</p>
                 </li>
                 <li>
-                    <p className={css.text}>positive feedback: {positivePercentage}</p>
+                    <p className={css.text}>positive feedback: {positivePercentage}%</p>
                 </li>
             </ul>
 }
@@ -25,6 +25,6 @@ Statistics.propTypes = {
     good: PropTypes.number.isRequired,
     neutral: PropTypes.number.isRequired,
     bad: PropTypes.number.isRequired,
-    total: PropTypes.func.isRequired,
-    positivePercentage: PropTypes.func.isRequired,
+    total: PropTypes.number.isRequired,
+    positivePercentage: PropTypes.number.isRequired,
 }
